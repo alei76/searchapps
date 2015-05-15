@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="shortcut icon" href="/favicon.ico" />
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+  <script src="../js/autocomplete.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.0/themes/smoothness/jquery-ui.css">
+
+  <title>{{query}} - Search</title>
+</head>
+
+<body>
+<div class="container">
+
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-7">&nbsp;</div>
+<div class="col-lg-3"></div>
+</div>
+
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-7">
+<form class="form" role="search" action="/search" id="search">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Search" id="q" name="q" value="{{query}}">
+  </div>
+</form>
+</div>
+<div class="col-lg-3"></div>
+</div>
+
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-7">
+  <ul class="nav nav-pills">
+    {{#tagsItems}}
+      <li class="{{tagsclass}}"><a href="{{tagshref}}"><small>{{tagsname}}({{tagscount}})</small></a></li>
+    {{/tagsItems}}
+  </ul>
+</div>
+<div class="col-lg-3"></div>
+</div>
+
+<hr>
+
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-7">
+  <h6>Page {{page}} of {{count}} results ({{qtime}} ms)</h6>
+</div>
+<div class="col-lg-3"></div>
+</div>
+
+<div class="row">
+<div class="col-lg-2">
+  {{#locationsshow}}
+    <strong>{{locationscategory}}</strong>
+    <hr>
+    <ul class="nav nav-pills nav-stacked">
+      {{#locationsItems}}
+        <li class="{{locationsclass}}"><a href="{{locationshref}}"><small>{{locationsname}}({{locationscount}})</small></a></li>
+      {{/locationsItems}}
+    </ul>
+    <br>
+  {{/locationsshow}}
+  {{#personsshow}}
+    <strong>{{personscategory}}</strong>
+    <hr>
+    <ul class="nav nav-pills nav-stacked">
+      {{#personsItems}}
+        <li class="{{personsclass}}"><a href="{{personshref}}"><small>{{personsname}}({{personscount}})</small></a></li>
+      {{/personsItems}}
+    </ul>
+    <br>
+  {{/personsshow}}
+  {{#foodsshow}}
+    <strong>{{foodscategory}}</strong>
+    <hr>
+    <ul class="nav nav-pills nav-stacked">
+      {{#foodsItems}}
+        <li class="{{foodsclass}}"><a href="{{foodshref}}"><small>{{foodsname}}({{foodscount}})</small></a></li>
+      {{/foodsItems}}
+    </ul>
+    <br>
+  {{/foodsshow}}
+  {{#eventsshow}}
+    <strong>{{eventscategory}}</strong>
+    <hr>
+    <ul class="nav nav-pills nav-stacked">
+      {{#eventsItems}}
+        <li class="{{eventsclass}}"><a href="{{eventshref}}"><small>{{eventsname}}({{eventscount}})</small></a></li>
+      {{/eventsItems}}
+    </ul>
+    <br>
+  {{/eventsshow}}
+</div>
+<div class="col-lg-7">
+{{#docItems}}
+  <h4><a href="{{titlehref}}">{{{title}}}</a></h4>
+  <h6>{{{content}}}</h6>
+  <h6>
+  {{#tags}}
+    <a href="/search?t={{.}}"><small>{{.}}</small></a>&nbsp;
+  {{/tags}}
+  </h6>
+  <br>
+{{/docItems}}
+</div>
+<div class="col-lg-3"></div>
+</div>
+
+<div class="row">
+<div class="col-lg-2"></div>
+<div class="col-lg-7">
+  <ul class="pager">
+    <li class="{{prevclass}}"><a href="{{prev}}">Prev</a></li>
+    <li class="{{nextclass}}"><a href="{{next}}">Next</a></li>
+  </ul>
+</div>
+<div class="col-lg-3"></div>
+</div>
+
+</div> <!-- container -->
+
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+</html>

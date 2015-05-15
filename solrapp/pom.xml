@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.tumblr.ouava</groupId>
+    <artifactId>solrapp-parent</artifactId>
+    <version>0.2-SNAPSHOT</version>
+    <relativePath>solrapp-parent/pom.xml</relativePath>
+  </parent>
+
+  <artifactId>solrapp</artifactId>
+  <name>solrapp</name>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>solrapp-parent</module>
+    <module>solrapp-client</module>
+    <module>solrapp-server</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <links>
+            <link>http://docs.oracle.com/javase/8/docs/api/</link>
+            <link>http://docs.guava-libraries.googlecode.com/git-history/v18.0/javadoc/</link>
+            <link>http://lucene.apache.org/solr/5_1_0/solr-core/</link>
+            <link>http://lucene.apache.org/solr/5_1_0/solr-solrj/</link>
+          </links>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
