@@ -1,0 +1,33 @@
+{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+

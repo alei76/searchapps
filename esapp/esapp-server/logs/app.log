@@ -1,0 +1,537 @@
+INFO  - 2015-05-16 22:32:05.767; org.elasticsearch.esapp.server.ServerConfig; port:8080
+INFO  - 2015-05-16 22:32:05.772; org.elasticsearch.esapp.server.ServerConfig; esAddresses:127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+INFO  - 2015-05-16 22:32:05.772; org.elasticsearch.esapp.server.ServerConfig; esClusterName:escluster
+INFO  - 2015-05-16 22:32:05.776; org.elasticsearch.esapp.server.ServerConfig; esIndex:index1
+INFO  - 2015-05-16 22:32:05.776; org.elasticsearch.esapp.server.ServerConfig; esType:type1
+INFO  - 2015-05-16 22:32:05.781; org.elasticsearch.esapp.server.ServerConfig; searchTemplate:{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+
+
+INFO  - 2015-05-16 22:32:05.942; org.elasticsearch.plugins.PluginsService; [Kukulcan] loaded [], sites []
+INFO  - 2015-05-16 22:32:06.789; spark.webserver.SparkServer; == Spark has ignited ...
+INFO  - 2015-05-16 22:32:06.789; spark.webserver.SparkServer; >> Listening on 0.0.0.0:8080
+INFO  - 2015-05-16 22:32:06.793; org.eclipse.jetty.server.Server; jetty-9.0.2.v20130417
+INFO  - 2015-05-16 22:32:06.831; org.eclipse.jetty.server.AbstractConnector; Started ServerConnector@3d6efadb{HTTP/1.1}{0.0.0.0:8080}
+INFO  - 2015-05-16 22:32:25.640; org.elasticsearch.esapp.server.Server; stopping...
+INFO  - 2015-05-16 22:32:25.661; spark.webserver.SparkServer; >>> Spark shutting down ...
+INFO  - 2015-05-16 22:32:25.663; org.eclipse.jetty.server.Server; Graceful shutdown org.eclipse.jetty.server.Server@32c90e9f by 
+INFO  - 2015-05-16 22:32:25.666; org.eclipse.jetty.server.AbstractConnector; Stopped ServerConnector@3d6efadb{HTTP/1.1}{0.0.0.0:8080}
+WARN  - 2015-05-16 22:32:40.669; org.eclipse.jetty.util.component.AbstractLifeCycle; FAILED qtp1032671757{FAILED,8<=1<=200,i=0,q=0}: java.lang.InterruptedException
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1253)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.doStop(QueuedThreadPool.java:153)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:127)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:69)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:415)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at spark.webserver.SparkServer.stop(SparkServer.java:135)
+	at spark.SparkBase.stop(SparkBase.java:225)
+	at org.elasticsearch.esapp.server.Server.stop(Server.java:89)
+	at org.elasticsearch.esapp.server.Server.lambda$start$4(Server.java:82)
+	at org.elasticsearch.esapp.server.Server$$Lambda$6/443290224.handle(Unknown Source)
+	at spark.SparkBase$1.handle(SparkBase.java:264)
+	at spark.webserver.MatcherFilter.doFilter(MatcherFilter.java:154)
+	at spark.webserver.JettyHandler.doHandle(JettyHandler.java:60)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:179)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:451)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:252)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:266)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:596)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:527)
+	at java.lang.Thread.run(Thread.java:745)
+WARN  - 2015-05-16 22:32:40.675; org.eclipse.jetty.util.component.AbstractLifeCycle; FAILED org.eclipse.jetty.server.Server@32c90e9f: java.lang.InterruptedException
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1253)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.doStop(QueuedThreadPool.java:153)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:127)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:69)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:415)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at spark.webserver.SparkServer.stop(SparkServer.java:135)
+	at spark.SparkBase.stop(SparkBase.java:225)
+	at org.elasticsearch.esapp.server.Server.stop(Server.java:89)
+	at org.elasticsearch.esapp.server.Server.lambda$start$4(Server.java:82)
+	at org.elasticsearch.esapp.server.Server$$Lambda$6/443290224.handle(Unknown Source)
+	at spark.SparkBase$1.handle(SparkBase.java:264)
+	at spark.webserver.MatcherFilter.doFilter(MatcherFilter.java:154)
+	at spark.webserver.JettyHandler.doHandle(JettyHandler.java:60)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:179)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:451)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:252)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:266)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:596)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:527)
+	at java.lang.Thread.run(Thread.java:745)
+ERROR - 2015-05-16 22:32:40.677; spark.webserver.SparkServer; stop failed
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1253)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.doStop(QueuedThreadPool.java:153)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:127)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:69)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:415)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at spark.webserver.SparkServer.stop(SparkServer.java:135)
+	at spark.SparkBase.stop(SparkBase.java:225)
+	at org.elasticsearch.esapp.server.Server.stop(Server.java:89)
+	at org.elasticsearch.esapp.server.Server.lambda$start$4(Server.java:82)
+	at org.elasticsearch.esapp.server.Server$$Lambda$6/443290224.handle(Unknown Source)
+	at spark.SparkBase$1.handle(SparkBase.java:264)
+	at spark.webserver.MatcherFilter.doFilter(MatcherFilter.java:154)
+	at spark.webserver.JettyHandler.doHandle(JettyHandler.java:60)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:179)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:451)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:252)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:266)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:596)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:527)
+	at java.lang.Thread.run(Thread.java:745)
+INFO  - 2015-05-16 22:34:14.372; org.elasticsearch.esapp.server.ServerConfig; port:8080
+INFO  - 2015-05-16 22:34:14.377; org.elasticsearch.esapp.server.ServerConfig; esAddresses:127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+INFO  - 2015-05-16 22:34:14.378; org.elasticsearch.esapp.server.ServerConfig; esClusterName:escluster
+INFO  - 2015-05-16 22:34:14.382; org.elasticsearch.esapp.server.ServerConfig; esIndex:collection1
+INFO  - 2015-05-16 22:34:14.382; org.elasticsearch.esapp.server.ServerConfig; esType:type1
+INFO  - 2015-05-16 22:34:14.386; org.elasticsearch.esapp.server.ServerConfig; searchTemplate:{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+
+
+INFO  - 2015-05-16 22:34:14.549; org.elasticsearch.plugins.PluginsService; [Living Laser] loaded [], sites []
+INFO  - 2015-05-16 22:34:15.343; spark.webserver.SparkServer; == Spark has ignited ...
+INFO  - 2015-05-16 22:34:15.344; spark.webserver.SparkServer; >> Listening on 0.0.0.0:8080
+INFO  - 2015-05-16 22:34:15.347; org.eclipse.jetty.server.Server; jetty-9.0.2.v20130417
+INFO  - 2015-05-16 22:34:15.377; org.eclipse.jetty.server.AbstractConnector; Started ServerConnector@8abc4b0{HTTP/1.1}{0.0.0.0:8080}
+INFO  - 2015-05-16 22:34:24.074; org.elasticsearch.esapp.server.Server; stopping...
+INFO  - 2015-05-16 22:34:24.092; spark.webserver.SparkServer; >>> Spark shutting down ...
+INFO  - 2015-05-16 22:34:24.094; org.eclipse.jetty.server.Server; Graceful shutdown org.eclipse.jetty.server.Server@72d96a90 by 
+INFO  - 2015-05-16 22:34:24.096; org.eclipse.jetty.server.AbstractConnector; Stopped ServerConnector@8abc4b0{HTTP/1.1}{0.0.0.0:8080}
+WARN  - 2015-05-16 22:34:39.099; org.eclipse.jetty.util.component.AbstractLifeCycle; FAILED qtp728952553{FAILED,8<=1<=200,i=0,q=0}: java.lang.InterruptedException
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1253)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.doStop(QueuedThreadPool.java:153)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:127)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:69)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:415)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at spark.webserver.SparkServer.stop(SparkServer.java:135)
+	at spark.SparkBase.stop(SparkBase.java:225)
+	at org.elasticsearch.esapp.server.Server.stop(Server.java:89)
+	at org.elasticsearch.esapp.server.Server.lambda$start$4(Server.java:82)
+	at org.elasticsearch.esapp.server.Server$$Lambda$6/443290224.handle(Unknown Source)
+	at spark.SparkBase$1.handle(SparkBase.java:264)
+	at spark.webserver.MatcherFilter.doFilter(MatcherFilter.java:154)
+	at spark.webserver.JettyHandler.doHandle(JettyHandler.java:60)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:179)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:451)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:252)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:266)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:596)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:527)
+	at java.lang.Thread.run(Thread.java:745)
+WARN  - 2015-05-16 22:34:39.105; org.eclipse.jetty.util.component.AbstractLifeCycle; FAILED org.eclipse.jetty.server.Server@72d96a90: java.lang.InterruptedException
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1253)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.doStop(QueuedThreadPool.java:153)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:127)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:69)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:415)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at spark.webserver.SparkServer.stop(SparkServer.java:135)
+	at spark.SparkBase.stop(SparkBase.java:225)
+	at org.elasticsearch.esapp.server.Server.stop(Server.java:89)
+	at org.elasticsearch.esapp.server.Server.lambda$start$4(Server.java:82)
+	at org.elasticsearch.esapp.server.Server$$Lambda$6/443290224.handle(Unknown Source)
+	at spark.SparkBase$1.handle(SparkBase.java:264)
+	at spark.webserver.MatcherFilter.doFilter(MatcherFilter.java:154)
+	at spark.webserver.JettyHandler.doHandle(JettyHandler.java:60)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:179)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:451)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:252)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:266)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:596)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:527)
+	at java.lang.Thread.run(Thread.java:745)
+ERROR - 2015-05-16 22:34:39.106; spark.webserver.SparkServer; stop failed
+java.lang.InterruptedException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Thread.join(Thread.java:1253)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.doStop(QueuedThreadPool.java:153)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStop(ContainerLifeCycle.java:127)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStop(AbstractHandler.java:69)
+	at org.eclipse.jetty.server.Server.doStop(Server.java:415)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.stop(AbstractLifeCycle.java:90)
+	at spark.webserver.SparkServer.stop(SparkServer.java:135)
+	at spark.SparkBase.stop(SparkBase.java:225)
+	at org.elasticsearch.esapp.server.Server.stop(Server.java:89)
+	at org.elasticsearch.esapp.server.Server.lambda$start$4(Server.java:82)
+	at org.elasticsearch.esapp.server.Server$$Lambda$6/443290224.handle(Unknown Source)
+	at spark.SparkBase$1.handle(SparkBase.java:264)
+	at spark.webserver.MatcherFilter.doFilter(MatcherFilter.java:154)
+	at spark.webserver.JettyHandler.doHandle(JettyHandler.java:60)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:179)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:451)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:252)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:266)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:596)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:527)
+	at java.lang.Thread.run(Thread.java:745)
+INFO  - 2015-05-17 03:24:33.266; org.elasticsearch.esapp.server.ServerConfig; port:8080
+INFO  - 2015-05-17 03:24:33.272; org.elasticsearch.esapp.server.ServerConfig; esAddresses:127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+INFO  - 2015-05-17 03:24:33.272; org.elasticsearch.esapp.server.ServerConfig; esClusterName:escluster
+INFO  - 2015-05-17 03:24:33.276; org.elasticsearch.esapp.server.ServerConfig; esIndex:collection1
+INFO  - 2015-05-17 03:24:33.277; org.elasticsearch.esapp.server.ServerConfig; esType:type1
+INFO  - 2015-05-17 03:24:33.282; org.elasticsearch.esapp.server.ServerConfig; searchTemplate:{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+
+
+INFO  - 2015-05-17 03:24:33.536; org.elasticsearch.plugins.PluginsService; [Big Man] loaded [], sites []
+INFO  - 2015-05-17 03:24:34.936; spark.webserver.SparkServer; == Spark has ignited ...
+INFO  - 2015-05-17 03:24:34.937; spark.webserver.SparkServer; >> Listening on 0.0.0.0:8080
+INFO  - 2015-05-17 03:24:34.941; org.eclipse.jetty.server.Server; jetty-9.0.2.v20130417
+INFO  - 2015-05-17 03:24:34.981; org.eclipse.jetty.server.AbstractConnector; Started ServerConnector@3597b1f8{HTTP/1.1}{0.0.0.0:8080}
+ERROR - 2015-05-17 03:24:47.081; spark.webserver.MatcherFilter; 
+java.lang.NullPointerException
+	at org.elasticsearch.esapp.server.ESView.createSearchResult(ESView.java:114)
+	at org.elasticsearch.esapp.server.ESView.execute(ESView.java:46)
+	at org.elasticsearch.esapp.server.ESController.getResult(ESController.java:31)
+	at org.elasticsearch.esapp.server.Server.lambda$start$2(Server.java:63)
+	at org.elasticsearch.esapp.server.Server$$Lambda$4/1979787155.handle(Unknown Source)
+	at spark.TemplateViewRouteImpl$1.handle(TemplateViewRouteImpl.java:66)
+	at spark.webserver.MatcherFilter.doFilter(MatcherFilter.java:154)
+	at spark.webserver.JettyHandler.doHandle(JettyHandler.java:60)
+	at org.eclipse.jetty.server.session.SessionHandler.doScope(SessionHandler.java:179)
+	at org.eclipse.jetty.server.handler.ScopedHandler.handle(ScopedHandler.java:136)
+	at org.eclipse.jetty.server.handler.HandlerList.handle(HandlerList.java:52)
+	at org.eclipse.jetty.server.handler.HandlerWrapper.handle(HandlerWrapper.java:97)
+	at org.eclipse.jetty.server.Server.handle(Server.java:451)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:252)
+	at org.eclipse.jetty.server.HttpConnection.onFillable(HttpConnection.java:266)
+	at org.eclipse.jetty.io.AbstractConnection$ReadCallback.run(AbstractConnection.java:240)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool.runJob(QueuedThreadPool.java:596)
+	at org.eclipse.jetty.util.thread.QueuedThreadPool$3.run(QueuedThreadPool.java:527)
+	at java.lang.Thread.run(Thread.java:745)
+INFO  - 2015-05-17 03:32:06.482; org.elasticsearch.esapp.server.ServerConfig; port:8080
+INFO  - 2015-05-17 03:32:06.488; org.elasticsearch.esapp.server.ServerConfig; esAddresses:127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+INFO  - 2015-05-17 03:32:06.488; org.elasticsearch.esapp.server.ServerConfig; esClusterName:escluster
+INFO  - 2015-05-17 03:32:06.491; org.elasticsearch.esapp.server.ServerConfig; esIndex:collection1
+INFO  - 2015-05-17 03:32:06.491; org.elasticsearch.esapp.server.ServerConfig; esType:type1
+INFO  - 2015-05-17 03:32:06.497; org.elasticsearch.esapp.server.ServerConfig; searchTemplate:{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+
+
+INFO  - 2015-05-17 03:32:06.668; org.elasticsearch.plugins.PluginsService; [Hoder] loaded [], sites []
+INFO  - 2015-05-17 03:32:07.618; spark.webserver.SparkServer; == Spark has ignited ...
+INFO  - 2015-05-17 03:32:07.619; spark.webserver.SparkServer; >> Listening on 0.0.0.0:8080
+INFO  - 2015-05-17 03:32:07.622; org.eclipse.jetty.server.Server; jetty-9.0.2.v20130417
+INFO  - 2015-05-17 03:32:07.656; org.eclipse.jetty.server.AbstractConnector; Started ServerConnector@4be721f4{HTTP/1.1}{0.0.0.0:8080}
+INFO  - 2015-05-17 03:32:20.976; org.elasticsearch.esapp.server.Server; method=GET path=/ params={} time=904
+INFO  - 2015-05-17 03:32:27.233; org.elasticsearch.esapp.server.Server; method=GET path=/ params={} time=410
+INFO  - 2015-05-17 03:32:29.457; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=&t=日本の漫画家} time=207
+INFO  - 2015-05-17 03:32:32.732; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=&t=日本の漫画家,日本のイラストレーター} time=58
+INFO  - 2015-05-17 03:32:34.746; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=&t=日本のイラストレーター} time=60
+INFO  - 2015-05-17 03:32:42.248; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=手塚治虫} time=333
+INFO  - 2015-05-17 03:32:49.586; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=手塚治虫&p=2} time=179
+INFO  - 2015-05-17 03:32:56.561; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=} time=67
+INFO  - 2015-05-17 03:33:02.686; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=タモリ} time=274
+INFO  - 2015-05-17 03:33:13.497; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=jav} time=30
+INFO  - 2015-05-17 03:33:16.313; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=java} time=230
+INFO  - 2015-05-17 03:37:38.299; org.elasticsearch.esapp.server.ServerConfig; port:8080
+INFO  - 2015-05-17 03:37:38.304; org.elasticsearch.esapp.server.ServerConfig; esAddresses:127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+INFO  - 2015-05-17 03:37:38.305; org.elasticsearch.esapp.server.ServerConfig; esClusterName:escluster
+INFO  - 2015-05-17 03:37:38.308; org.elasticsearch.esapp.server.ServerConfig; esIndex:collection1
+INFO  - 2015-05-17 03:37:38.308; org.elasticsearch.esapp.server.ServerConfig; esType:type1
+INFO  - 2015-05-17 03:37:38.322; org.elasticsearch.esapp.server.ServerConfig; searchTemplate:{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+
+
+INFO  - 2015-05-17 03:37:38.512; org.elasticsearch.plugins.PluginsService; [Stem Cell] loaded [], sites []
+INFO  - 2015-05-17 03:37:39.594; spark.webserver.SparkServer; == Spark has ignited ...
+INFO  - 2015-05-17 03:37:39.594; spark.webserver.SparkServer; >> Listening on 0.0.0.0:8080
+INFO  - 2015-05-17 03:37:39.598; org.eclipse.jetty.server.Server; jetty-9.0.2.v20130417
+INFO  - 2015-05-17 03:37:39.634; org.eclipse.jetty.server.AbstractConnector; Started ServerConnector@105b33a0{HTTP/1.1}{0.0.0.0:8080}
+INFO  - 2015-05-17 03:37:43.678; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=java} time=203
+INFO  - 2015-05-17 03:37:46.963; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=java} time=88
+INFO  - 2015-05-17 03:39:23.468; org.elasticsearch.esapp.server.ServerConfig; port:8080
+INFO  - 2015-05-17 03:39:23.473; org.elasticsearch.esapp.server.ServerConfig; esAddresses:127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+INFO  - 2015-05-17 03:39:23.473; org.elasticsearch.esapp.server.ServerConfig; esClusterName:escluster
+INFO  - 2015-05-17 03:39:23.476; org.elasticsearch.esapp.server.ServerConfig; esIndex:collection1
+INFO  - 2015-05-17 03:39:23.476; org.elasticsearch.esapp.server.ServerConfig; esType:type1
+INFO  - 2015-05-17 03:39:23.482; org.elasticsearch.esapp.server.ServerConfig; searchTemplate:{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+
+
+INFO  - 2015-05-17 03:39:23.660; org.elasticsearch.plugins.PluginsService; [Nightwatch] loaded [], sites []
+INFO  - 2015-05-17 03:39:24.639; spark.webserver.SparkServer; == Spark has ignited ...
+INFO  - 2015-05-17 03:39:24.640; spark.webserver.SparkServer; >> Listening on 0.0.0.0:8080
+INFO  - 2015-05-17 03:39:24.642; org.eclipse.jetty.server.Server; jetty-9.0.2.v20130417
+INFO  - 2015-05-17 03:39:24.677; org.eclipse.jetty.server.AbstractConnector; Started ServerConnector@5816bd41{HTTP/1.1}{0.0.0.0:8080}
+INFO  - 2015-05-17 03:39:28.406; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=java} time=138
+INFO  - 2015-05-17 03:39:39.491; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=赤塚} time=90
+INFO  - 2015-05-17 03:39:49.638; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=ごみ} time=134
+INFO  - 2015-05-17 03:40:10.720; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=無印良品} time=69
+INFO  - 2015-05-17 03:40:16.256; org.elasticsearch.esapp.server.Server; method=GET path=/search params={t=細野晴臣のアルバム} time=31
+INFO  - 2015-05-17 03:40:23.446; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=&t=細野晴臣のアルバム,NHK紅白歌合戦歌唱楽曲・作詞者・作曲者} time=26
+INFO  - 2015-05-17 03:40:34.004; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=java&t=プログラミング} time=53
+INFO  - 2015-05-17 03:40:38.675; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=java&t=プログラミング,ソフトウェア開発工程} time=32
+INFO  - 2015-05-17 03:40:45.767; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=赤塚} time=117
+INFO  - 2015-05-17 03:40:50.344; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=赤塚&p=2} time=100
+INFO  - 2015-05-17 03:41:49.502; org.elasticsearch.esapp.server.ServerConfig; port:8080
+INFO  - 2015-05-17 03:41:49.506; org.elasticsearch.esapp.server.ServerConfig; esAddresses:127.0.0.1:9300,127.0.0.1:9301,127.0.0.1:9302
+INFO  - 2015-05-17 03:41:49.506; org.elasticsearch.esapp.server.ServerConfig; esClusterName:escluster
+INFO  - 2015-05-17 03:41:49.509; org.elasticsearch.esapp.server.ServerConfig; esIndex:collection1
+INFO  - 2015-05-17 03:41:49.510; org.elasticsearch.esapp.server.ServerConfig; esType:type1
+INFO  - 2015-05-17 03:41:49.515; org.elasticsearch.esapp.server.ServerConfig; searchTemplate:{
+    "query" : {
+        "filtered" : {
+            "query" : {
+                "query_string" : {
+                    "query" : "@query",
+                    "auto_generate_phrase_queries" : true,
+                    "use_dis_max" : true,
+                    "fields" : [ "title_ja^15", "content_ja^10", "title^5", "content" ]
+                 }
+            },
+            "filter" : {
+                @filter
+            }
+        }
+    },
+    "from" : @from, "size" : 10,
+    "sort" : [ { "_score" : "desc" }, { "_uid" : "asc" } ],
+    "fields" : [ "tags", "url" ],
+    "highlight" : {
+        "require_field_match" : true,
+        "pre_tags" : ["<strong style=\"background:yellow\">"], "post_tags" : ["</strong>"],
+        "fields" : [
+            { "title" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 50 } },
+            { "content" : { "type" : "fvh", "fragment_size" : 100, "number_of_fragments" : 3, "no_match_size": 100 } }
+        ]
+    },
+    "aggs" : {
+        "agg_tags" : { "terms": { "field" : "tags" } }
+    }
+}
+
+
+
+INFO  - 2015-05-17 03:41:49.695; org.elasticsearch.plugins.PluginsService; [Master of Vengeance] loaded [], sites []
+INFO  - 2015-05-17 03:41:50.676; spark.webserver.SparkServer; == Spark has ignited ...
+INFO  - 2015-05-17 03:41:50.676; spark.webserver.SparkServer; >> Listening on 0.0.0.0:8080
+INFO  - 2015-05-17 03:41:50.680; org.eclipse.jetty.server.Server; jetty-9.0.2.v20130417
+INFO  - 2015-05-17 03:41:50.719; org.eclipse.jetty.server.AbstractConnector; Started ServerConnector@71e1b67b{HTTP/1.1}{0.0.0.0:8080}
+INFO  - 2015-05-17 03:41:55.956; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=赤塚&t=大阪市出身の人物} time=138
+INFO  - 2015-05-17 03:42:03.139; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=} time=59
+INFO  - 2015-05-17 03:42:11.342; org.elasticsearch.esapp.server.Server; method=GET path=/search params={q=&t=日本の都道府県} time=60

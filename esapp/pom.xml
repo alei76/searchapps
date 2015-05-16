@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.tumblr.ouava</groupId>
+    <artifactId>esapp-parent</artifactId>
+    <version>0.2-SNAPSHOT</version>
+    <relativePath>esapp-parent/pom.xml</relativePath>
+  </parent>
+
+  <artifactId>esapp</artifactId>
+  <name>esapp</name>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>esapp-parent</module>
+    <module>esapp-client</module>
+    <module>esapp-server</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.3</version>
+        <configuration>
+          <links>
+            <link>http://docs.oracle.com/javase/8/docs/api/</link>
+            <link>http://docs.guava-libraries.googlecode.com/git-history/v18.0/javadoc/</link>
+          </links>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
