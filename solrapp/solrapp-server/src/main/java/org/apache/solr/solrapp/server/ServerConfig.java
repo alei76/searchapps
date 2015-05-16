@@ -24,7 +24,6 @@ public class ServerConfig {
   private String homePath;
   private ImmutableMap<String,String> props;
 
-  private String path;
   private String port;
 
   private String zkHost;
