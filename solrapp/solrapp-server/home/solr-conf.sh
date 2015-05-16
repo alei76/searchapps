@@ -33,23 +33,11 @@ curl http://localhost:8983/solr/collection1/config -H 'Content-type:application/
     "facet.field":"tags",
     "f.tags.facet.limit":"20",
     "f.tags.facet.mincount":"2",
-    "facet.field":"locations",
-    "f.locations.facet.limit":"5",
-    "f.locations.facet.mincount":"2",
-    "facet.field":"persons",
-    "f.persons.facet.limit":"5",
-    "f.persons.facet.mincount":"2",
-    "facet.field":"foods",
-    "f.foods.facet.limit":"5",
-    "f.foods.facet.mincount":"2",
-    "facet.field":"events",
-    "f.events.facet.limit":"5",
-    "f.events.facet.mincount":"2",
 
     "hl":"on",
     "hl.useFastVectorHighlighter":"true",
-    "hl.tag.pre":"<![CDATA[<strong style=\"background:yellow\">]]>",
-    "hl.tag.post":"<![CDATA[</strong>]]>",
+    "hl.tag.pre":"<strong style=\"background:yellow\">",
+    "hl.tag.post":"</strong>",
     "hl.fl":"title,content",
     "hl.requireFieldMatch":"true",
     "f.title.hl.alternateField":"title",
@@ -60,4 +48,18 @@ curl http://localhost:8983/solr/collection1/config -H 'Content-type:application/
     }
   }
 }'
+
+#    "facet.field":"locations",
+#    "f.locations.facet.limit":"5",
+#    "f.locations.facet.mincount":"2",
+#    "facet.field":"persons",
+#    "f.persons.facet.limit":"5",
+#    "f.persons.facet.mincount":"2",
+#    "facet.field":"foods",
+#    "f.foods.facet.limit":"5",
+#    "f.foods.facet.mincount":"2",
+#    "facet.field":"events",
+#    "f.events.facet.limit":"5",
+#    "f.events.facet.mincount":"2",
+
 
