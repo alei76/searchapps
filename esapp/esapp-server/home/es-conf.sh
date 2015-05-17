@@ -13,13 +13,16 @@ curl -XPUT 'localhost:9200/collection1/_settings?pretty' -d '{
                     "filter" : [ "kuromoji_baseform_filter", "kuromoji_part_of_speech_filter", "ja_stop_filter", "kuromoji_stemmer_filter", "lowercase_filter" ]
                 },
                 "text_cjk": {
-                    "tokenizer":  "standard",
-                    "filter": [ "lowercase", "cjk_bigram" ]
+                    "tokenizer":  "ngram_tokenizer",
+                    "filter": [ "lowercase_filter" ]
                 }
             },
             "tokenizer" : {
                 "japanese_tokenizer" : {
                     "type" : "kuromoji_tokenizer", "mode" : "search"
+                },
+                "ngram_tokenizer" : {
+                    "type" : "nGram", "min_gram" : 2, "max_gram" : 2
                 }
             },
             "filter" : {
@@ -71,12 +74,14 @@ curl -XPUT 'localhost:9200/collection1/_mapping/type1?pretty' -d '{
                 "index_analyzer" : "text_cjk", "search_analyzer" : "text_cjk",
                 "position_offset_gap" : 100,
                 "term_vector" : "with_positions_offsets",
+                "norms" : { "enabled" : false },
                 "copy_to" : [ "content_ja" ]
             },
             "content_ja" : {
                 "type" : "string", "store" : false, "index" : "analyzed",
                 "index_analyzer" : "text_ja", "search_analyzer" : "text_ja",
-                "position_offset_gap" : 100
+                "position_offset_gap" : 100,
+                "norms" : { "enabled" : false }
             }
         }
     }
