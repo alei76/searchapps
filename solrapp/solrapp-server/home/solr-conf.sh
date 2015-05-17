@@ -7,7 +7,7 @@ curl -XPOST 'http://localhost:8983/solr/collection1/schema?updateTimeoutSecs=90'
     "autoGeneratePhraseQueries":"true",
     "positionIncrementGap":"100",
     "indexAnalyzer":{
-      "tokenizer":{ "class":"solr.JapaneseTokenizerFactory", "mode":"search" },
+      "tokenizer":{ "class":"solr.JapaneseTokenizerFactory", "mode":"normal" },
       "filters":[
         { "class":"solr.JapaneseBaseFormFilterFactory" },
         { "class":"solr.JapanesePartOfSpeechStopFilterFactory", "tags":"lang/stoptags_ja.txt" },
@@ -18,7 +18,7 @@ curl -XPOST 'http://localhost:8983/solr/collection1/schema?updateTimeoutSecs=90'
       ]
     },
     "queryAnalyzer":{
-      "tokenizer":{ "class":"solr.JapaneseTokenizerFactory", "mode":"search" },
+      "tokenizer":{ "class":"solr.JapaneseTokenizerFactory", "mode":"normal" },
       "filters":[
         { "class":"solr.JapaneseBaseFormFilterFactory" },
         { "class":"solr.JapanesePartOfSpeechStopFilterFactory", "tags":"lang/stoptags_ja.txt" },
