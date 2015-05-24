@@ -47,6 +47,7 @@ curl -XPOST 'http://localhost:8983/solr/collection1/schema?updateTimeoutSecs=90'
       ]
     }
   },
+  "replace-field":{ "name":"_text_", "type":"ignored", "indexed":false, "stored":false, "multiValued":true },
   "add-field":{ "name":"tags", "type":"string", "indexed":true, "stored":true, "required":false, "multiValued":true, "default": "nonTag" },
   "add-field":{ "name":"url", "type":"string", "indexed":true, "stored":true, "required":false, "multiValued":false },
   "add-field":{ "name":"title_ja", "type":"text_ja", "indexed":true, "stored":false, "multiValued":false },
